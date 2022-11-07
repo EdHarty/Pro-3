@@ -284,17 +284,4 @@ def get_move_from_user(board):
         # Turn lowercase to uppercase.
         user_input = user_input.upper()
 
-        # If player exits the game.
-        if user_input == 'QUIT':
-            print('\nQuitting game. Good-bye!')
-            sys.exit(0)
-
-        # Limit input length to 2 characters.
-        if len(user_input) != 2:
-            print('\nYou must only have 2 characters (example: A5)')
-            continue
-
-        try:
-            return Coordinates(user_input[0], user_input[1])
-        except ErrorInvalid:
-            continue
+        
