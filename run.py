@@ -1,7 +1,5 @@
 import random
 
-#import random variable generators.
-
 
 
 class Board:
@@ -63,3 +61,20 @@ class Board:
         """
 
         ship = Battleship(size)
+
+        min_row = size - 1
+        min_col = size - 1
+        max_row = 10 - size
+        max_col = 10 - size
+
+        placed_ship = False
+
+        while not placed_ship:
+            
+            set_row = random.randint(min_row, max_row)
+            set_col = random.randint(min_col, max_col)
+
+            current_row, current_col = set_row, set_col
+
+            
+        
