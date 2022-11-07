@@ -28,3 +28,30 @@ class Board:
         self.append_ship(1)
         self.append_ship(1)
         self.append_ship(1)
+
+    def __repr__(self):
+
+        repr = '\nPlayer Board:\n'
+
+        repr += '\n A B C D E F G H I J\n'
+
+        for row in range(10):
+            repr += f'{row} '
+
+            for col in range(10):
+
+                if self.board[row][col] == 0:
+                    repr += '-'
+                else:
+                    repr += 'x'
+
+                if col < 9:
+                    repr += ' '
+            
+            if row < 9:
+                repr += '\n'
+        
+        return repr
+
+
+        
