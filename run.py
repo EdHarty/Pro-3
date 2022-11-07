@@ -11,15 +11,19 @@ class Board:
     """
 
     def __init__(self, player):
-
+        # Player board
         self.player = player
 
+        # The game board
         self.board = [[0 for bd in range(10)] for r in range(10)]
 
+        # Board that shows positions that has been attacked.
         self.board_attacked = [[0 for bd in range(10)] for r in range(10)]
 
+        # The battleships.
         self.ships = []
 
+        # Different sized battleships.
         self.append_ship(4)
         self.append_ship(3)
         self.append_ship(3)
@@ -55,14 +59,17 @@ class Board:
 
         return repr
 
+    # Add a battleship.
     def append_ship(self, size):
         """
         Adds ship randomly and positions ship in
         particular direction.
         """
 
+        # Create a battleship.
         ship = Battleship(size)
 
+        # Ship placement.
         min_row = size - 1
         min_col = size - 1
         max_row = 10 - size
@@ -72,80 +79,101 @@ class Board:
 
         while not placed_ship:
 
+            # Randomize ship placement.
             set_row = random.randint(min_row, max_row)
             set_col = random.randint(min_col, max_col)
 
             current_row, current_col = set_row, set_col
-            
+
+            # Ship orientation.
             location = random.randint(1, 4)
 
             placed_ship = True
 
+            # Check to see if area is occupied already.
             for i in range(0, size):
 
                 if not self.check_area(current_row, current_col):
                     placed_ship = False
                     break
 
+                # Up
                 if location == 1:
                     current_row -= 1
 
+                # Down
                 elif location == 2:
                     current_row += 1
 
+                # Right
                 elif location == 3:
                     current_col += 1
 
+                # Left
                 else:
                     current_col -= 1
 
+            # If area is free plot the ship.
             if placed_ship:
 
                 current_row, current_col = set_row, set_col
 
                 for i in range(0, size):
 
+                    # Area is taken.
                     self.board[current_row][current_col] = 1
 
+                    # ship area occupied.
                     ship.add_section(current_row, current_col)
 
+                    # Up
                     if location == 1:
                         current_row -= 1
 
+                    # Down
                     elif location == 2:
                         current_row += 1
 
+                    # Right
                     elif location == 3:
                         current_col += 1
 
+                    # Left
                     else:
                         current_col -= 1
 
+                # Add this ship to the board
                 self.ships.append(ship)
 
+    # Remove a battleship from the board
     def minus_ship(self, ship):
         """
         Removes a battleship from the board.
         """
         self.ships = [x for x in self.ships if x != ship]
 
+    # Check if area is occupied.
     def check_area(self, row, col):
         """
         This is to check if areas on the board are occupied.
         """
 
+        # Check surrounding area.
         for r in range(row - 1, row + 2):
             for bd in range(col - 1, col + 2):
                 try:
 
+                    # If area is occupied, return False.
                     if self.board[r][bd] == 1:
                         return False
 
                 except IndexError:
                     pass
 
+        # If not occupied, return True
         return True
 
+    # Attack specific coordinates.
     def attack(self, coordinates):
         """
         Attack specific coordinates and the outcome of the attack.
@@ -156,8 +184,10 @@ class Board:
         else:
             print(f'\nYou launch an attack {coordinates}!')
 
+        # Break between turns.
         time.sleep(2)
 
+        # Check if position has been attacked.
         if self.board_attacked[coordinates.row][coordinates.col]:
             print('\nThat position has already been attacked!')
 
@@ -192,7 +222,7 @@ class Board:
                         # If ships still remain.
                         else:
 
-                            print('\nBattleship Desroyed!', end=' ')
+                            print('\nBattleship Destroyed!', end=' ')
 
                             if self.player == 0:
                                 print(f'You have {len(self.ships)} ship(s) remaining on the board.')
@@ -257,8 +287,7 @@ class Battleship:
         If battleship has been destroyed.
         """
 
-        # Return True if the ship has no remaining areas,
-        #  otherwise return False
+        # Return True if the ship has no remaining areas, otherwise return False
         return not bool(self.sections)
 
 
@@ -283,6 +312,21 @@ def get_move_from_user(board):
         # Turn lowercase to uppercase.
         user_input = user_input.upper()
 
+        # If player exits the game.
+        if user_input == 'QUIT':
+            print('\nQuitting game. Good-bye!')
+            sys.exit(0)
+
+        # Limit input length to 2 characters.
+        if len(user_input) != 2:
+            print('\nYou must only have 2 characters (example: A5)')
+            continue
+
+        try:
+            return Coordinates(user_input[0], user_input[1])
+        except ErrorInvalid:
+            continue
+
 
 class Enemy:
     """
@@ -294,7 +338,7 @@ class Enemy:
         # log of previous turns so as not to repeat.
         self.board = [[0 for bd in range(10)] for r in range(10)]
 
-    # Position under attack.
+    # Position computer will attack.
     def generate_move(self):
         """
         Creates random area to attack.
@@ -308,7 +352,7 @@ class Enemy:
             set_row = random.randint(0, 9)
             set_col = random.randint(0, 9)
 
-            # To see if position has been attacked.
+            # To see if position hasn't been attacked.
             if not self.board[set_row][set_col]:
 
                 # Log position as already attacked.
@@ -362,8 +406,8 @@ class Coordinates:
                 col = 8
             else:
                 col = 9
-    
-# Validate the row argument
+
+        # Validate the row argument
         if type(row) is int:
             if row < 0 or row > 9:
                 print('\nRow must be an integer (0-9).')
@@ -430,9 +474,3 @@ if __name__ == "__main__":
 
         # Attack the user's board at the given position
         player_1_board.attack(target_coordinates)
-
-
-        
-
-           
-        
