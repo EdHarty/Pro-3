@@ -1,10 +1,11 @@
 import random
 
 
+
 class Board:
 
     """
-    Sets player board, game board and size of the board.
+    Sets player board, game board and size of board.
     Sets ships sizes.
     """
 
@@ -33,7 +34,7 @@ class Board:
 
         repr = '\nPlayer Board:\n'
 
-        repr += '\n A B C D E F G H I J\n'
+        repr += '\n  A B C D E F G H I J\n'
 
         for row in range(10):
             repr += f'{row} '
@@ -47,11 +48,8 @@ class Board:
 
                 if col < 9:
                     repr += ' '
-            
+
             if row < 9:
                 repr += '\n'
-        
+
         return repr
-
-
-        
