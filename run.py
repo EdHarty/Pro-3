@@ -1,5 +1,6 @@
 import random
 import time
+import sys
 
 
 
@@ -170,3 +171,44 @@ class Board:
             for ship in self.ships:
 
                 if ship.minus_section(coordinates.row, coordinates.col):
+
+                    # If ship is sunk.
+                    if ship.is_destroyed():
+
+                        # Remove ship.
+                        self.minus_ship(ship)
+
+                        # If no more ships.
+                        if not self.ships:
+
+                            # Winner/Loser.
+                            if self.player == 0:
+                                print('\nGame over! Player ships destroyed')
+                            else:
+                                print('\nVictory! Enemy ships destroyed')
+
+                            # To exit the game.
+                            sys.exit(0)
+
+                        # If ships still remain.
+                        else:
+
+                            print('\nBattleship Desroyed!', end=' ')
+
+                            if self.player == 0:
+                                print(f'You have {len(self.ships)} ship(s) remaining on the board.')
+                            else:
+                                print(f'Your enemy has {len(self.ships)} ship(s) remaining on the board.')
+
+                    break
+
+            # Mark the area as empty.
+            self.board[coordinates.row][coordinates.col] = 0
+
+        # If the area doesn't contain a ship
+        else:
+            print('\nMiss!')
+
+        self.board_attacked[coordinates.row][coordinates.col] = 1
+
+        time.sleep(2)
