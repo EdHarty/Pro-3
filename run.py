@@ -261,3 +261,40 @@ class Battleship:
         # Return True if the ship has no remaining areas,
         #  otherwise return False
         return not bool(self.sections)
+
+
+class ErrorInvalid(Exception):
+    pass
+
+
+def get_move_from_user(board):
+    """
+    Display player's board and options to target
+    enemy or quit the game.
+    """
+
+    # Loop while receiving player input.
+    while True:
+
+        # Show the player's board.
+        print(board)
+
+        user_input = input('\nSelect a target on your enemy\'s board (example: A5) (\'quit\' to end game): ')
+
+        # Turn lowercase to uppercase.
+        user_input = user_input.upper()
+
+        # If player exits the game.
+        if user_input == 'QUIT':
+            print('\nQuitting game. Good-bye!')
+            sys.exit(0)
+
+        # Limit input length to 2 characters.
+        if len(user_input) != 2:
+            print('\nYou must only have 2 characters (example: A5)')
+            continue
+
+        try:
+            return Coordinates(user_input[0], user_input[1])
+        except ErrorInvalid:
+            continue
