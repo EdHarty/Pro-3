@@ -212,3 +212,52 @@ class Board:
         self.board_attacked[coordinates.row][coordinates.col] = 1
 
         time.sleep(2)
+
+
+class Battleship:
+    """
+    Create a new battleship in the free areas
+    on the board.
+    """
+
+    # Create a new Battleship object.
+    def __init__(self, size):
+        self.size = size
+        self.sections = []
+
+    # Add a section to this ship's list of sections.
+    def add_section(self, row, col):
+        """
+        Create a new battleship object and add a section.
+        to this ship's list of sections.
+        """
+        self.sections.append([row, col])
+
+    # Remove a section from this ship's list of sections.
+    def minus_section(self, row, col):
+        """
+        Remove a section from this ship's list of sections.
+        """
+
+        target_section = [row, col]
+
+        # Remove the target section if it exists.
+        for section in self.sections:
+            if section == target_section:
+                self.sections = [bd for bd in self.sections if bd != target_section]
+
+                # Return True if the target section was found and removed.
+                return True
+
+        # Return False if the target section was not found
+        return False
+
+    # If ship sank.
+    def is_destroyed(self):
+        """
+        If battleship has been destroyed.
+        """
+
+        # Return True if the ship has no remaining areas,
+        #  otherwise return False
+        return not bool(self.sections)
