@@ -3,7 +3,6 @@ import time
 import sys
 
 
-
 class Board:
 
     """
@@ -305,7 +304,7 @@ class Enemy:
 
         while not found_coordinates:
 
-             # Random position attacked.
+            # Random position attacked.
             set_row = random.randint(0, 9)
             set_col = random.randint(0, 9)
 
@@ -404,6 +403,34 @@ class Coordinates:
             return 'I' + str(self.row)
         else:
             return 'J' + str(self.row)
+
+
+if __name__ == "__main__":
+
+    print('\nWelcome to Battleship!')
+
+    # Generate a board for both players (0 = user, 1 = cpu)
+    player_1_board = Board(0)
+    player_2_board = Board(1)
+
+    # Generate opponent for the player to compete against
+    enemy = Enemy()
+
+    # Main game loop
+    while True:
+
+        # Get a target position from the user
+        target_coordinates = get_move_from_user(player_1_board)
+
+        # Attack the enemies board at the given position
+        player_2_board.attack(target_coordinates)
+
+        # Enemy launches attack
+        target_coordinates = enemy.generate_move()
+
+        # Attack the user's board at the given position
+        player_1_board.attack(target_coordinates)
+
 
         
 
