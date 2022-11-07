@@ -363,6 +363,47 @@ class Coordinates:
                 col = 8
             else:
                 col = 9
+    
+# Validate the row argument
+        if type(row) is int:
+            if row < 0 or row > 9:
+                print('\nRow must be an integer (0-9).')
+                raise ErrorInvalid()
+
+        # If player selects row.
+        elif type(row) is str:
+            if row not in '0123456789':
+                print('\nThe second character must be a number 0-9.')
+                raise ErrorInvalid()
+
+            row = int(row)
+
+        # If input is correct, place the points.
+        self.col = col
+        self.row = row
+
+    def __repr__(self):
+
+        if self.col == 0:
+            return 'A' + str(self.row)
+        elif self.col == 1:
+            return 'B' + str(self.row)
+        elif self.col == 2:
+            return 'C' + str(self.row)
+        elif self.col == 3:
+            return 'D' + str(self.row)
+        elif self.col == 4:
+            return 'E' + str(self.row)
+        elif self.col == 5:
+            return 'F' + str(self.row)
+        elif self.col == 6:
+            return 'G' + str(self.row)
+        elif self.col == 7:
+            return 'H' + str(self.row)
+        elif self.col == 8:
+            return 'I' + str(self.row)
+        else:
+            return 'J' + str(self.row)
 
         
 
