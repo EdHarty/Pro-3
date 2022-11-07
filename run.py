@@ -1,5 +1,7 @@
 import random
 
+#import random variable generators.
+
 
 
 class Board:
@@ -53,3 +55,11 @@ class Board:
                 repr += '\n'
 
         return repr
+
+    def append_ship(self, size):
+        """
+        Adds ship randomly and positions ship in
+        particular direction.
+        """
+
+        ship = Battleship(size)
