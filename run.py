@@ -104,28 +104,45 @@ class Board:
 
                 for i in range(0, size):
 
-                    # Area is taken.
                     self.board[current_row][current_col] = 1
 
-                    # ship area occupied.
                     ship.add_section(current_row, current_col)
 
-                    # Up
                     if location == 1:
                         current_row -= 1
 
-                    # Down
                     elif location == 2:
                         current_row += 1
 
-                    # Right
                     elif location == 3:
                         current_col += 1
 
-                    # Left
                     else:
                         current_col -= 1
 
+                self.ships.append(ship)
 
-            
+    def minus_ship(self, ship):
+        """
+        Removes a battleship from the board.
+        """
+        self.ships = [x for x in self.ships if x != ship]
+
+    def check_area(self, row, col):
+        """
+        This is to check if areas on the board are occupied.
+        """
+
+        for r in range(row - 1, row + 2):
+            for bd in range(col - 1, col + 2):
+                try:
+
+                    if self.board[r][bd] == 1:
+                        return False
+
+                except IndexError:
+                    pass
+
         
+
+                
