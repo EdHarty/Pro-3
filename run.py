@@ -1,4 +1,5 @@
 import random
+import time
 
 
 
@@ -143,6 +144,29 @@ class Board:
                 except IndexError:
                     pass
 
-        
+        return True
 
-                
+    def attack(self, coordinates):
+        """
+        Attack specific coordinates and the outcome of the attack.
+        """
+
+        if self.player == 0:
+            print(f'\nYour enemy launches an attack {coordinates}!')
+        else:
+            print(f'\nYou launch an attack {coordinates}!')
+
+        time.sleep(2)
+
+        if self.board_attacked[coordinates.row][coordinates.col]:
+            print('\nThat position has already been attacked!')
+
+        # If the area contains a ship.
+        elif self.board[coordinates.row][coordinates.col]:
+
+            print('\nDirect Hit!')
+
+            # Identify ship that was hit.
+            for ship in self.ships:
+
+                if ship.minus_section(coordinates.row, coordinates.col):
