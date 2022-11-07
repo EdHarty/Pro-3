@@ -305,5 +305,21 @@ class Enemy:
 
         while not found_coordinates:
 
+             # Random position attacked.
+            set_row = random.randint(0, 9)
+            set_col = random.randint(0, 9)
+
+            # To see if position has been attacked.
+            if not self.board[set_row][set_col]:
+
+                # Log position as already attacked.
+                self.board[set_row][set_col] = 1
+
+                found_coordinates = True
+
+        chosen_coordinates = Coordinates(set_col, set_row)
+
+        return chosen_coordinates
+
            
         
