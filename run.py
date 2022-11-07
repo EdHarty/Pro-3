@@ -321,5 +321,50 @@ class Enemy:
 
         return chosen_coordinates
 
+
+class Coordinates:
+
+    """
+    Validate the column and row arguments.
+    """
+
+    def __init__(self, col, row):
+
+        # To validate column argument.
+        if type(col) is int:
+            if col < 0 or col > 9:
+                print('\nColumn must be either integer (0-9) or string (A-J).')
+                raise ErrorInvalid()
+
+        # If player selects column.
+        elif type(col) is str:
+            if col not in 'ABCDEFGHIJ':
+                print('\nThe first character must be a letter from A-J.')
+                raise ErrorInvalid()
+
+            # Express column as integer.
+            if col == 'A':
+                col = 0
+            elif col == 'B':
+                col = 1
+            elif col == 'C':
+                col = 2
+            elif col == 'D':
+                col = 3
+            elif col == 'E':
+                col = 4
+            elif col == 'F':
+                col = 5
+            elif col == 'G':
+                col = 6
+            elif col == 'H':
+                col = 7
+            elif col == 'I':
+                col = 8
+            else:
+                col = 9
+
+        
+
            
         
