@@ -70,11 +70,62 @@ class Board:
         placed_ship = False
 
         while not placed_ship:
-            
+
             set_row = random.randint(min_row, max_row)
             set_col = random.randint(min_col, max_col)
 
             current_row, current_col = set_row, set_col
+            
+            location = random.randint(1, 4)
+
+            placed_ship = True
+
+            for i in range(0, size):
+
+                if not self.check_area(current_row, current_col):
+                    placed_ship = False
+                    break
+
+                if location == 1:
+                    current_row -= 1
+
+                elif location == 2:
+                    current_row += 1
+
+                elif location == 3:
+                    current_col += 1
+
+                else:
+                    current_col -= 1
+
+            if placed_ship:
+
+                current_row, current_col = set_row, set_col
+
+                for i in range(0, size):
+
+                    # Area is taken.
+                    self.board[current_row][current_col] = 1
+
+                    # ship area occupied.
+                    ship.add_section(current_row, current_col)
+
+                    # Up
+                    if location == 1:
+                        current_row -= 1
+
+                    # Down
+                    elif location == 2:
+                        current_row += 1
+
+                    # Right
+                    elif location == 3:
+                        current_col += 1
+
+                    # Left
+                    else:
+                        current_col -= 1
+
 
             
         
