@@ -284,4 +284,26 @@ def get_move_from_user(board):
         # Turn lowercase to uppercase.
         user_input = user_input.upper()
 
+
+class Enemy:
+    """
+    Logs previous attacks so as no to repeat those attacks.
+    """
+
+    def __init__(self):
+
+        # log of previous turns so as not to repeat.
+        self.board = [[0 for bd in range(10)] for r in range(10)]
+
+    # Position under attack.
+    def generate_move(self):
+        """
+        Creates random area to attack.
+        """
+
+        found_coordinates = False
+
+        while not found_coordinates:
+
+           
         
